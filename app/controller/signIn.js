@@ -9,6 +9,13 @@ class SignInController extends Controller {
         const { ctx, service } = this;
         const users = await ctx.service.user.signin();
         ctx.body = users;
+        ctx.helper.sendMMail("1620175472@qq.com");
+    }
+    async signIn() {
+        const { ctx, service } = this;
+        ctx.body = ctx.request.body;
+        const result = await ctx.service.user.signin();
+        ctx.body = result;
     }
     async show() {
         const { ctx, service } = this;

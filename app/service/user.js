@@ -1,5 +1,12 @@
 const Service = require('egg').Service;
 
+/**
+ * {
+ *    status: success / faild
+ *    data: Json / "err message"
+ * }
+ */
+
 class UserService extends Service {
     async signin() {
         // const user = await this.app.mysql.get('users')

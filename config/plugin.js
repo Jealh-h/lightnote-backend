@@ -1,5 +1,7 @@
 'use strict';
 
+// 声明插件
+
 /** @type Egg.EggPlugin */
 module.exports = {
   // had enabled by egg

@@ -6,6 +6,7 @@
 module.exports = app => {
   const { router, controller } = app;
   router.get('/', controller.home.index);
-  router.get('/signin/:id', controller.signIn.show);
-  router.post('/api/signin', controller.signIn.verify);
+  router.get('/mail', controller.signIn.verify)
+  router.post('/api/signin', controller.signIn.signIn);
+  router.post('/api/signup', controller.signIn.verify);
 };
