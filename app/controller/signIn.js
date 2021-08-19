@@ -13,7 +13,6 @@ class SignInController extends Controller {
     }
     async signIn() {
         const { ctx, service } = this;
-        ctx.body = ctx.request.body;
         const result = await ctx.service.user.signin();
         ctx.body = result;
     }

@@ -22,6 +22,16 @@ module.exports = appInfo => {
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',
+
+    // 设置multipart用于formdata上传文件
+    multipart: {
+      mode: 'file',
+    },
+    // 跨域
+    cors: {
+      orgin: "*",
+      allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS'
+    },
     gzip: {
       threshold: 1024
     },
@@ -37,6 +47,14 @@ module.exports = appInfo => {
       app: true,
       // 是否加载到 agent 上，默认关闭
       agent: false,
+    },
+    redis: {
+      client: {
+        port: 6379,
+        host: '47.99.199.187',
+        password: 'hhd1620175472',
+        db: 0
+      }
     }
   };
 
