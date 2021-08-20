@@ -5,6 +5,7 @@ const Controller = require('egg').Controller;
 // 验证码处理类
 
 class VerifyController extends Controller {
+
     // 发送验证码
     async sendVcode() {
         const { ctx, service } = this;
@@ -22,7 +23,7 @@ class VerifyController extends Controller {
          */
         // 存储在redis里面--过期时间 15minutes
         await this.app.redis.set(uuid, code, 'EX', 900);
-
+        console.log(ctx.request.body);
         // 发送邮件
         // ctx.helper.sendMMail(email, code);
         // 返回 uuid
@@ -33,30 +34,10 @@ class VerifyController extends Controller {
             }
         };
     }
-    // 校验验证码
-    async verifyCode() {
-        const { ctx } = this;
-        const { uuid, Vcode } = ctx.request.body;
-        const searchRes = await this.app.redis.get(uuid);
-        if (searchRes === null) {
-            ctx.body = {
-                status: "faild",
-                data: "验证码无效"
-            }
-            return;
-        } else if (searchRes != Vcode) {
-            ctx.body = {
-                status: "faild",
-                data: "验证码错误",
-            }
-            return;
-        } else {
-            ctx.body = {
-                status: "success",
-                data: "验证通过"
-            }
-            return;
-        }
+    async modifyPassword() {
+        const { ctx, service } = this;
+        const result = await ctx.service.user.modifyPassword();
+        ctx.body = result;
     }
 }
 

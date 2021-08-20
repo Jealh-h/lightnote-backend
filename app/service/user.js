@@ -51,5 +51,53 @@ class UserService extends Service {
             return result;
         }
     }
+    async modifyPassword() {
+        const { ctx } = this;
+        const { uuid, Vcode, email, password } = ctx.request.body;
+        const searchRes = await this.app.redis.get(uuid);
+        console.log(uuid);
+        console.log(searchRes);
+        console.log(Vcode === searchRes);
+        if (searchRes === null) {
+            return {
+                status: "fail",
+                data: "验证码无效"
+            };
+        } else if (searchRes != Vcode) {
+            return {
+                status: "fail",
+                data: "验证码错误",
+            };
+        } else {
+            // TODO 清除验证码
+            // 验证码通过，更改密码
+            try {
+                const upRes = await this.app.mysql.update('users', {
+                    password: this.ctx.helper.cryptoPassWord(password)
+                }, {
+                    where: {
+                        email: email
+                    }
+                });
+                console.log(upRes);
+                if (upRes.affectedRows === 1) {
+                    return {
+                        status: "success",
+                        data: "修改成功"
+                    };
+                } else {
+                    return {
+                        status: "fail",
+                        data: "修改失败，请稍后重试"
+                    };
+                }
+            } catch (error) {
+                return {
+                    status: "fail",
+                    data: "修改失败，请稍后重试"
+                };
+            }
+        }
+    }
 }
 module.exports = UserService;
