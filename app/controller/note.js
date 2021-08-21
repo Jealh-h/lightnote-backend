@@ -15,6 +15,12 @@ class NoteController extends Controller {
         const result = await ctx.service.note.getNoteBook();
         ctx.body = result;
     }
+
+    async deleteNotebook() {
+        const { ctx } = this;
+        const result = await ctx.service.note.deleteNotebook();
+        ctx.body = result;
+    }
 }
 
 module.exports = NoteController;
