@@ -57,5 +57,42 @@ module.exports = {
      */
     getVerifyCode() {
         return randStr(6, { letters: false });
+    },
+
+    /**
+     * 
+     * @param {int} day 获取距离当天的日期 0表示今天 
+     * @returns 过去一周
+     */
+    async getDay() {
+        //getTime()返回1970年1月1日至今的毫秒数。
+        var dateArr = [];
+        for (let i = 6; i >= 0; i--) {
+            var days = new Date();
+            var gettimes = days.getTime() - 1000 * 60 * 60 * 24 * i;
+            days.setTime(gettimes);
+            var year = days.getFullYear();
+            var month = days.getMonth() + 1;
+            let date = {};
+            date.year = year;
+            date.month = month;
+            date.day = days.getDate();
+            date.date = days.getDay();
+            dateArr.push(date);
+        }
+        return dateArr;
+    },
+
+    /**
+     * 
+     * @param {*Array<bill>[]} data 
+     */
+    getSum(data) {
+        let sum = 0;
+        for (let i = 0; i < data.length; i++) {
+            sum += data[i].value;
+        }
+        return sum;
     }
+
 }

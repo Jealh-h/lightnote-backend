@@ -24,6 +24,11 @@ class TestController extends Controller {
         console.log("更改：", result);
         ctx.body = result;
     }
+    async dateTest() {
+        const { ctx } = this;
+        const result = ctx.helper.getDay();
+        ctx.body = result;
+    }
 }
 
 module.exports = TestController;

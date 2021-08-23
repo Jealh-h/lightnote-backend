@@ -13,10 +13,14 @@ module.exports = app => {
   router.post('/api/upload', controller.upload.upload);
   router.post('/api/sendcode', controller.verify.sendVcode);
   router.post('/api/test', controller.test.test);
+  router.post('/api/test2', controller.test.dateTest);
   router.post('/api/addnotebook', controller.note.addNoteBook);
   router.post('/api/getnotebook', controller.note.getNoteBook);
   router.post('/api/deletenotebook', controller.note.deleteNotebook);
 
   router.post('/api/addbill', controller.bill.addbill);
   router.post('/api/getbill', controller.bill.getbill);
+  router.post('/api/getweekdata', controller.bill.getWeekData);
+  router.post('/api/getyeardata', controller.bill.getYearData);
+  router.post('/api/getcircledata', controller.bill.getCircleData);
 };

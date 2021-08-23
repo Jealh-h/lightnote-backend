@@ -48,5 +48,54 @@ class BillController extends Controller {
         ctx.body = result;
 
     }
+    async getWeekData() {
+        const { ctx } = this;
+        try {
+            const result = await this.service.bill.getWeekData();
+            ctx.body = {
+                status: "success",
+                data: result
+            }
+        } catch (e) {
+            console.log(e);
+            ctx.body = {
+                status: "fail",
+                data: "后端报错"
+            }
+        }
+
+    }
+    async getYearData() {
+        const { ctx } = this;
+        try {
+            const result = await this.ctx.service.bill.getYearData();
+            ctx.body = {
+                status: "success",
+                data: result
+            }
+        } catch (error) {
+            console.log(error);
+            ctx.body = {
+                status: "fail",
+                data: "后端报错"
+            }
+        }
+    }
+    async getCircleData() {
+        const { ctx } = this;
+        try {
+            const result = await ctx.service.bill.getCircleData();
+            ctx.body = {
+                status: "success",
+                data: result
+            }
+        } catch (error) {
+            console.log(error);
+            ctx.body = {
+                status: "fail",
+                data: "后端报错"
+            }
+        }
+    }
 }
 module.exports = BillController;
