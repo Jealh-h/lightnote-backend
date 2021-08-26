@@ -26,6 +26,7 @@ module.exports = appInfo => {
     // 设置multipart用于formdata上传文件
     multipart: {
       mode: 'file',
+      fields: "1000"
     },
     // 跨域
     cors: {
@@ -55,7 +56,8 @@ module.exports = appInfo => {
         password: 'hhd1620175472',
         db: 0
       }
-    }
+    },
+
   };
 
   return {

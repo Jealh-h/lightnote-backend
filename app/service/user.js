@@ -44,7 +44,8 @@ class UserService extends Service {
                 avatarUrl: "http://47.99.199.187/images/default_avatar.jpg",
                 email: email,
                 username: username,
-                password: this.ctx.helper.cryptoPassWord(password)
+                password: this.ctx.helper.cryptoPassWord(password),
+                signature: "这个人很懒，还没有留下任何东西"
             });
             result.status = "success";
             result.data = "注册成功";
@@ -98,6 +99,22 @@ class UserService extends Service {
                 };
             }
         }
+    }
+    async changeUserInfo() {
+        const { ctx } = this;
+        const { userid, username, signature } = ctx.request.body;
+        await this.app.mysql.update('users', {
+            username: username,
+            signature: signature
+        }, {
+            where: {
+                userid: userid
+            }
+        });
+        const result = await this.app.mysql.get('user', {
+            userid: userid
+        })
+        return result;
     }
 }
 module.exports = UserService;

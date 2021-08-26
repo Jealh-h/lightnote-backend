@@ -1,5 +1,5 @@
 module.exports = {
     security: {
-        csrf: true
+        csrf: false
     }
 }
