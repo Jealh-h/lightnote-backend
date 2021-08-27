@@ -67,8 +67,8 @@ class NoteController extends Controller {
             const upStream = fs.createWriteStream(filepath);
             render.pipe(upStream);
             // TODO 修改数据库里面的url
-            // const fileUrl = `http://47.99.199.187/light_note/${filename}`;
-            const fileUrl = `http://47.99.199.187/light_note/IMG_3660.JPG`;
+            const fileUrl = `http://47.99.199.187/light_note/${filename}`;
+            // const fileUrl = `http://47.99.199.187/light_note/IMG_3660.JPG`;
             // 添加笔记
             if (info.opr == "add") {
                 await this.app.mysql.insert('note', {
@@ -76,7 +76,7 @@ class NoteController extends Controller {
                     bid: info.bid,
                     imageUrl: fileUrl,
                     userid: info.userid,
-                    time: Date.now().toLocaleString()
+                    time: Date.now().toLocaleDateString()
                 });
 
             }
@@ -85,7 +85,7 @@ class NoteController extends Controller {
                 await this.app.mysql.update('note', {
                     title: info.title,
                     imageUrl: fileUrl,
-                    time: Date.now().toLocaleString()
+                    time: new Date().toLocaleDateString()
                 }, {
                     where: {
                         bid: info.bid,
@@ -108,6 +108,31 @@ class NoteController extends Controller {
         } finally {
             // 删除临时文件
             await mfs.unlink(file.filepath);
+        }
+    }
+    // 删除笔记
+    async deleteNote() {
+        const { ctx } = this;
+        const { userid, bid, noteid } = ctx.request.body;
+        var result = await this.app.mysql.delete('note', {
+            userid: userid,
+            noteid: noteid,
+            bid: bid
+        })
+        if (result.affectedRows === 1) {
+            const res = await this.app.mysql.select('note', {
+                userid: userid,
+                bid: bid
+            })
+            ctx.body = {
+                status: "success",
+                data: res
+            }
+        } else {
+            ctx.body = {
+                status: "fail",
+                data: "删除失败"
+            }
         }
     }
 }

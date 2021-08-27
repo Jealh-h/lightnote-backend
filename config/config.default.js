@@ -57,6 +57,10 @@ module.exports = appInfo => {
         db: 0
       }
     },
+    alinode: {
+      appid: '89076',
+      secret: '5cf123a1384abeaf007d4454434af38125b15935'
+    }
 
   };
 

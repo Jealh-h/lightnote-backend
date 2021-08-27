@@ -19,6 +19,7 @@ module.exports = app => {
   router.post('/api/getnotebook', controller.note.getNoteBook);
   router.post('/api/deletenotebook', controller.note.deleteNotebook);
   router.post('/api/addnote', controller.note.addNote);
+  router.post('/api/deletenote', controller.note.deleteNote);
   router.post('/api/getnotelist', controller.note.getNoteList);
 
   router.post('/api/addbill', controller.bill.addbill);

@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "egg": "^2.15.1",
+    "egg-alinode": "^2.0.1",
     "egg-mysql": "^3.0.0",
     "egg-redis": "^2.4.0",
     "egg-scripts": "^2.11.0",
@@ -27,7 +28,7 @@
     "node": ">=10.0.0"
   },
   "scripts": {
-    "start": "egg-scripts start --port=8080 --daemon --title=egg-server-lightnote-backend",
+    "start": "egg-scripts start --port=7001 --daemon --title=egg-server-lightnote-backend",
     "stop": "egg-scripts stop --title=egg-server-lightnote-backend",
     "dev": "egg-bin dev",
     "debug": "egg-bin debug",

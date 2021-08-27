@@ -108,11 +108,11 @@ class UserService extends Service {
             signature: signature
         }, {
             where: {
-                userid: userid
+                id: userid
             }
         });
-        const result = await this.app.mysql.get('user', {
-            userid: userid
+        const result = await this.app.mysql.get('users', {
+            id: userid
         })
         return result;
     }

@@ -12,9 +12,9 @@ class FileController extends Controller {
     async upload() {
         const { ctx, service } = this;
         // ctx.set('access-control-allow-origin', '*');
-        console.log("body:", ctx.request.body);
-        console.log("files:", ctx.request.files);
+        const info = ctx.request.body;
         const file = ctx.request.files[0];
+        ctx.set('access-control-allow-origin', '*');
         // // 文件名称
         const filename = file.filename;
         // // 创建读入流
@@ -26,14 +26,22 @@ class FileController extends Controller {
             render.pipe(upStream);
             // let address = os.networkInterfaces();
             // 修改数据库里面的url
-            ctx.set('access-control-allow-origin', '*');
+            const url = `http://47.99.199.187/light_note/${filename}`
+            await this.app.mysql.update('users', {
+                "avatarUrl": url
+            }, {
+                where: {
+                    "id": info.userid
+                }
+            })
+            const result = await this.app.mysql.get('users', {
+                id: info.userid
+            })
             ctx.body =
             {
                 status: "success",
-                data: `http://47.99.199.187/light_note/${filename}`
-            }; // 后续转换成url
-
-            // ctx.body = "123";
+                data: result
+            };
         } catch (error) {
             console.log(error);
             ctx.body = {
@@ -44,7 +52,6 @@ class FileController extends Controller {
             // 删除临时文件
             await mfs.unlink(file.filepath);
         }
-
     }
 }
 

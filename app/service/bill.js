@@ -160,7 +160,7 @@ class BillService extends Service {
         resultArr.forEach((e, index) => {
             sumMoney += e.totalOut;
             totalCount += e.count;
-            if (e.totalOut > resultArr[maxIndex]) {
+            if (e.totalOut > resultArr[maxIndex].totalOut) {
                 maxIndex = index;
             }
         })

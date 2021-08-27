@@ -15,5 +15,9 @@ module.exports = {
   redis: {
     enable: true,
     package: 'egg-redis'
+  },
+  alinode: {
+    enable: true,
+    package: 'egg-alinode'
   }
 };
