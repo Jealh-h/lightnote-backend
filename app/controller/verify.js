@@ -25,7 +25,7 @@ class VerifyController extends Controller {
         await this.app.redis.set(uuid, code, 'EX', 900);
         console.log(ctx.request.body);
         // 发送邮件
-        // ctx.helper.sendMMail(email, code);
+        await ctx.helper.sendMMail(email, code);
         // 返回 uuid
         ctx.body = {
             status: "success",

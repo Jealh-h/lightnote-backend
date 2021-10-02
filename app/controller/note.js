@@ -90,6 +90,7 @@ class NoteController extends Controller {
                     where: {
                         bid: info.bid,
                         userid: info.userid,
+                        noteid: info.noteid
                     }
                 });
             }
@@ -121,8 +122,10 @@ class NoteController extends Controller {
         })
         if (result.affectedRows === 1) {
             const res = await this.app.mysql.select('note', {
-                userid: userid,
-                bid: bid
+                where: {
+                    userid: userid,
+                    bid: bid
+                }
             })
             ctx.body = {
                 status: "success",
